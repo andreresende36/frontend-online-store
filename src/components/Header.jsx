@@ -9,8 +9,7 @@ export default class Header extends Component {
           type="text"
           data-testid="query-input"
           name="searchValue"
-          className="input is-success is-fullwidth"
-          value=""
+          className="searchValue"
         />
 
         <p data-testid="home-initial-message">
