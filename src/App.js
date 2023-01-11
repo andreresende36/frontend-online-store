@@ -6,14 +6,12 @@ import Cart from './pages/Cart';
 
 function App() {
   return (
-    <>
-      <div>
-        <Switch>
-          <Route exact path="/" component={ Header } />
-          <Route exact path="/cart" component={ Cart } />
-        </Switch>
-      </div>
-    </>
+    <div>
+      <Switch>
+        <Route exact path="/" component={ Header } />
+        <Route exact path="/cart" component={ Cart } />
+      </Switch>
+    </div>
   );
 }
 
