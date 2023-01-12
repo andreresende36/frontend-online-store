@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class ProdutcList extends React.Component {
   render() {
@@ -7,14 +8,20 @@ class ProdutcList extends React.Component {
     return (
       <>
         {products.map((element) => (
-          <div
-            data-testid="product"
+          <Link
+            to={ `/product-details/${element.id}` }
+            data-testid="product-detail-link"
             key={ element.id }
           >
-            <h2>{ element.title }</h2>
-            <img src={ element.thumbnail } alt={ element.title } />
-            <p>{ element.price }</p>
-          </div>
+            <div
+              key={ element.id }
+              data-testid="product"
+            >
+              <h2>{ element.title }</h2>
+              <img src={ element.thumbnail } alt={ element.title } />
+              <p>{ element.price }</p>
+            </div>
+          </Link>
         ))}
       </>
     );
