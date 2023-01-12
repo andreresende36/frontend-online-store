@@ -1,26 +1,45 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProdutcList from '../components/ProductList';
+import Categories from '../components/Categories';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
   state = {
-    products: {},
-    query: '',
+    search: '',
+    products: [],
+    id: '',
+    teste: false,
   };
 
-  handleChanges = ({ target }) => {
-    this.setState({ query: target.value });
+  handleInput = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   };
 
-  submitHandle = async () => {
-    const { query } = this.state;
-    const getProducts = await getProductsFromCategoryAndQuery(query);
-    this.setState({ products: getProducts.results });
+  submitHandleTwo = (radioid) => {
+    this.setState({
+      id: radioid,
+      search: '',
+    }, async () => {
+      const { search, id } = this.state;
+      const result = await getProductsFromCategoryAndQuery(id, search);
+      this.setState({ products: result, teste: true });
+    });
+  };
+
+  submitHandle = () => {
+    this.setState({
+      id: '',
+    }, async () => {
+      const { search, id } = this.state;
+      const result = await getProductsFromCategoryAndQuery(id, search);
+      this.setState({ products: result, teste: true, search: '' });
+    });
   };
 
   render() {
-    const { products } = this.state;
+    const { products, id, search, teste } = this.state;
     return (
       <section>
         <div>
@@ -30,7 +49,9 @@ class Home extends React.Component {
               id="search"
               data-testid="query-input"
               type="text"
-              onChange={ this.handleChanges }
+              name="search"
+              onChange={ this.handleInput }
+              value={ search }
             />
           </label>
           <button
@@ -50,17 +71,14 @@ class Home extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         </div>
+        <Categories value={ id } handleInput={ this.submitHandleTwo } />
         <div>
-          {products.length > 0
-            ? (products.map(({ title, thumbnail, price }, index) => (
+          {teste > 0
+            ? (
               <ProdutcList
-                key={ index }
-                title={ title }
-                thumbnail={ thumbnail }
-                price={ price }
-                data-testid="product"
+                products={ products.results }
               />
-            )))
+            )
             : <p>Nenhum produto foi encontrado</p> }
         </div>
       </section>

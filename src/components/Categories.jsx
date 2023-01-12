@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
-
-const categoriesUrl = 'https://api.mercadolibre.com/sites/MLB/categories';
+import PropTypes from 'prop-types';
+import { getCategories } from '../services/api';
 
 export default class Categories extends Component {
   state = {
     categories: [],
   };
 
-  async componentDidMount() {
-    const request = await fetch(categoriesUrl);
-    this.setState({ categories: await request.json() });
+  componentDidMount() {
+    this.fetchCategories();
   }
+
+  handleInputTwo = ({ target }) => {
+    const { handleInput } = this.props;
+    handleInput(target.id);
+  };
+
+  fetchCategories = async () => {
+    const response = await getCategories();
+    this.setState({
+      categories: response,
+    });
+  };
 
   render() {
     const { categories } = this.state;
@@ -20,14 +31,14 @@ export default class Categories extends Component {
         {categories.map((category) => (
           <>
             <label
-              htmlFor={ category.name }
-              key={ category.id }
-              data-testid="category"
+              htmlFor={ category.id }
             >
               <input
                 type="radio"
-                name="category"
-                id={ category.name }
+                name="valueId"
+                onChange={ this.handleInputTwo }
+                id={ category.id }
+                data-testid="category"
               />
               { category.name }
             </label>
@@ -38,3 +49,7 @@ export default class Categories extends Component {
     );
   }
 }
+
+Categories.propTypes = {
+  handleInput: PropTypes.func.isRequired,
+};
