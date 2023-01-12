@@ -18,7 +18,6 @@ export default class Header extends Component {
         <Link data-testid="shopping-cart-button" to="/cart">
           <button type="button">Carrinho de Compras</button>
         </Link>
-
       </header>
     );
   }
