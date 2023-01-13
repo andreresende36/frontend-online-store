@@ -36,6 +36,7 @@ export default class AddToCart extends Component {
         type="button"
         data-testid="product-add-to-cart"
         onClick={ this.handleAddToCartButton }
+        // data-testid="product-detail-add-to-cart"
       >
         Adicionar ao Carrinho
       </button>
