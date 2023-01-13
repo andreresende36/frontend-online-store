@@ -29,7 +29,9 @@ export default class Categories extends Component {
       <div>
         <p>Categorias</p>
         {categories.map((category) => (
-          <>
+          <div
+            key={ category.id }
+          >
             <label
               htmlFor={ category.id }
             >
@@ -43,7 +45,7 @@ export default class Categories extends Component {
               { category.name }
             </label>
             <br />
-          </>
+          </div>
         ))}
       </div>
     );
