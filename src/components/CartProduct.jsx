@@ -2,29 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class CartProduct extends Component {
-  state = {
-    name: '',
-    image: '',
-    quantity: '',
-    price: '',
-  };
-
-  componentDidMount() {
-    this.handleProduct();
-  }
-
-  handleProduct = () => {
-    const { name, image, price, quantity } = this.props;
-    this.setState({
-      name,
-      image,
-      price,
-      quantity,
-    });
-  };
-
   render() {
-    const { name, image, price, quantity } = this.state;
+    const { name, image, price, quantity } = this.props;
     return (
       <div className="cardCartProduct">
         {/* Imagem */}
