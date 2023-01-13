@@ -21,7 +21,7 @@ export default class Cart extends Component {
     return (
       <div className="cart-div">
         <h2 data-testid="shopping-cart-empty-message">
-          { productsList.length === 0
+          { !productsList
             ? 'Seu carrinho está vazio'
             : productsList.map((item) => (
               <CartProduct
