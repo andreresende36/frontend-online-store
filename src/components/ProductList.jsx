@@ -12,7 +12,7 @@ class ProductList extends React.Component {
   }
 
   render() {
-    const { products } = this.props;
+    const { products, handleSize } = this.props;
     return (
       <>
         {products.map((element) => (
@@ -31,7 +31,10 @@ class ProductList extends React.Component {
                 <p>{ element.price }</p>
               </div>
             </Link>
-            <AddToCart productObj={ element } />
+            <AddToCart
+              productObj={ element }
+              handleSize={ handleSize }
+            />
           </>
         ))}
       </>
@@ -46,6 +49,7 @@ ProductList.propTypes = {
     thumbnail: PropTypes.string,
     title: PropTypes.string,
   }).isRequired,
+  handleSize: PropTypes.func.isRequired,
 };
 
 export default ProductList;
