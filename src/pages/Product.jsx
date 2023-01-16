@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductById } from '../services/api';
+import RatingContainer from '../components/RatingContainer';
 
 export default class Product extends Component {
   state = {
@@ -35,7 +36,7 @@ export default class Product extends Component {
 
   render() {
     const { productObj } = this.state;
-    console.log(productObj);
+    const { match: { params: { id } } } = this.props;
     return (
       <div>
         <h1 data-testid="product-detail-name">
@@ -65,6 +66,7 @@ export default class Product extends Component {
         >
           Adicionar ao carrinho
         </button>
+        <RatingContainer productId={ id } />
       </div>
     );
   }
