@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ProdutcList from '../components/ProductList';
 import Categories from '../components/Categories';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import CartButton from '../components/CartButton';
 
 class Home extends React.Component {
   state = {
@@ -10,11 +11,16 @@ class Home extends React.Component {
     products: [],
     id: '',
     teste: false,
+    size: JSON.parse(localStorage.getItem('totalQuantity')) || 0,
   };
 
   handleInput = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
+  };
+
+  handleSize = (value) => {
+    this.setState({ size: value });
   };
 
   submitHandleTwo = (radioid) => {
@@ -39,7 +45,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { products, id, search, teste } = this.state;
+    const { products, id, search, teste, size } = this.state;
     return (
       <section>
         <div>
@@ -65,7 +71,7 @@ class Home extends React.Component {
             to="/Cart"
             data-testid="shopping-cart-button"
           >
-            Carrinho de compras
+            <CartButton size={ size } />
           </Link>
           <p data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
@@ -77,6 +83,7 @@ class Home extends React.Component {
             ? (
               <ProdutcList
                 products={ products.results }
+                handleSize={ this.handleSize }
               />
             )
             : <p>Nenhum produto foi encontrado</p> }

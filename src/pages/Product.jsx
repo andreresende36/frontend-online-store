@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductById } from '../services/api';
 import RatingContainer from '../components/RatingContainer';
+import CartButton from '../components/CartButton';
 
 export default class Product extends Component {
   state = {
     productObj: {},
+    size: JSON.parse(localStorage.getItem('totalQuantity')) || 0,
   };
 
   componentDidMount() {
@@ -35,10 +37,16 @@ export default class Product extends Component {
   };
 
   render() {
-    const { productObj } = this.state;
+    const { productObj, size } = this.state;
     const { match: { params: { id } } } = this.props;
     return (
       <div>
+        <Link
+          to="/Cart"
+          data-testid="shopping-cart-button"
+        >
+          <CartButton size={ size } />
+        </Link>
         <h1 data-testid="product-detail-name">
           { productObj.title }
         </h1>
@@ -52,13 +60,6 @@ export default class Product extends Component {
             data-testid="product-detail-image"
           />
         </div>
-        <Link
-          to="/Cart"
-        >
-          <button data-testid="shopping-cart-button" type="button">
-            Carrinho de compras
-          </button>
-        </Link>
         <button
           type="button"
           data-testid="product-detail-add-to-cart"
